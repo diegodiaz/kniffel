@@ -1,0 +1,12 @@
+{
+  "name": "kniffel",
+  "displayName": "kniffel",
+  "expo": {
+    "name": "kniffel",
+    "slug": "kniffel",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
