@@ -28,6 +28,14 @@ const styles = StyleSheet.create({
   }
 })
 
+const isKniffel = (scores) => {
+
+}
+
+const isFullHouse = (scores) => {
+  
+}
+
 const Item = ({
   id,
   active,
@@ -93,16 +101,24 @@ const OPTIONS = [
     label: 'seis',
     value: 0,
   },
+  {
+    id: 7,
+    label: 'seis',
+    value: 0,
+  },
 ];
 
 const Scores = (props) => {
-  const { active, result } = props;
+  const { turn, active, result } = props;
   const [options, setOptions] = useState(OPTIONS);
 
   const handleSelectChange = (id) => {
     const selected = options.map((item) => {
-      const total = result.filter((item)=>(item===id)).reduce((a, b) => (b+a), 0);
-      return id===item.id ? {...item, selected: true, total} : {...item, total: 0, selected: false};
+      if (id===item.id && (item.turn || turn) === turn) {
+        const total = result.filter((item)=>(item===id)).reduce((a, b) => (b+a), 0);
+        return  {...item, selected: true, total, turn};
+      }
+      return (item.turn || turn) === turn ? {...item, total: 0, selected: false} : item;
     })
     setOptions(selected);
   }

@@ -43,9 +43,16 @@ const getResult = () => {
 
 const Dice = () => {
   const [scores, setScores] = useState([]);
+  const [turn, setTurn] = useState(0);
   const [roll, setRoll] = useState(3);
   const [result, setResult] = useState([]);
   const [hold, setHold] = useState([]);
+
+  const clearTurn = () => {
+    setRoll(3);
+    setResult([]);
+    setHold([]);
+  }
 
   const handleDiceShake = () => {
     const arrayResult = [];
@@ -67,9 +74,13 @@ const Dice = () => {
   }
 
   const handleReset = () => {
-    setRoll(3);
-    setResult([]);
-    setHold([]);
+    clearTurn();
+    setTurn(0);
+  }
+
+  const handleNext = () => {
+    clearTurn();
+    setTurn(turn+1);
   }
 
   useEffect(()=> {
@@ -84,9 +95,13 @@ const Dice = () => {
 
   return (
     <View style={styles.root}>
+      <Text>
+        {`Turno: ${turn}`}
+      </Text>
       <SafeAreaView style={{flex: 1}}>
         <View style={styles.scores}>
           <Scores
+            turn={turn}
             active={roll===0}
             result={result}
             total={result.reduce((a, b)=>( a + b), 0)}
@@ -116,6 +131,10 @@ const Dice = () => {
             title="Tirar dados"
             disabled={roll===0}
             onPress={handleDiceShake}
+          />
+          <Button
+            title="Siguiente"
+            onPress={handleNext}
           />
           <Button
             title="Reiniciar"
